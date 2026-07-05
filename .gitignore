@@ -1,0 +1,61 @@
+# Dependency directories
+**/node_modules/
+**/jspm_packages/
+.npm
+.pnpm-store
+
+# Generated
+**/__generated__
+**/out-tsc
+**/build
+**/dist
+**/out
+**/tmp
+
+# Framework specific directories
+**/.webpack
+**/.vite
+**/.next
+**/.vercel
+**/.expo
+**/.open-next
+**/.wxt
+**/.docusaurus
+**/.sst
+**/sst-env.d.ts
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage 
+coverage
+*.lcov
+.nyc_output
+
+# TypeScript cache
+*.tsbuildinfo
+
+# dotenv environment variables file
+.env
+.env.test
+
+# Miscellaneous
+.DS_Store
+.cache
+
+# Nx
+.nx/cache
+.nx/workspace-data

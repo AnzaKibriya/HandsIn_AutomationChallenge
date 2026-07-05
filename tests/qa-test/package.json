@@ -1,0 +1,13 @@
+{
+  "name": "payflow-qa-takehome",
+  "version": "2.0.0",
+  "description": "QA take-home: test a payment orchestration API under concurrency",
+  "type": "module",
+  "scripts": {
+    "api": "tsx watch src/server.ts",
+    "api:start": "tsx src/server.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  }
+}

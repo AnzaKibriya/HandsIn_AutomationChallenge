@@ -1,0 +1,137 @@
+{
+	"$schema": "node_modules/nx/schemas/nx-schema.json",
+	"tui": {"enabled": false},
+	"namedInputs": {
+		"default": [
+			"{projectRoot}/**",
+			"!{projectRoot}/dist/**",
+			"!{projectRoot}/out-tsc/**",
+			"!{projectRoot}/**/__generated__/**",
+			"!{projectRoot}/.(next|open-next|vite|expo|sst|swc|wxt)/**",
+			"sharedGlobals"
+		],
+		"sharedGlobals": [
+			"{workspaceRoot}/tsconfig.json",
+			"{workspaceRoot}/tsconfig.base.json",
+			"{workspaceRoot}/babel.config.json",
+			"{workspaceRoot}/jest.config.ts",
+			"{workspaceRoot}/jest.preset.js",
+			"{workspaceRoot}/biome.json"
+		],
+		"production": [
+			"default",
+			"!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+			"!{projectRoot}/tsconfig.spec.json",
+			"!{projectRoot}/jest.config.[jt]s",
+			"!{projectRoot}/test-setup.[jt]s",
+			"!{projectRoot}/sst.config.[jt]s"
+		]
+	},
+	"targetDefaults": {
+		"build": {
+			"cache": true,
+			"inputs": [
+				"production",
+				"^production"
+			],
+			"outputs": [
+				"{projectRoot}/dist/**"
+			],
+			"dependsOn": [
+				"^build",
+				"^generate",
+				"generate"
+			]
+		},
+		"typecheck": {
+			"inputs": [
+				"production",
+				"^production"
+			],
+			"outputs": [
+				"{projectRoot}/out-tsc/**"
+			],
+			"dependsOn": [
+				"^typecheck",
+				"generate"
+			],
+			"cache": true
+		},
+		"test": {
+			"inputs": [
+				"default",
+				"^default"
+			],
+			"options": {
+				"passWithNoTests": true
+			},
+			"dependsOn": [
+				"^build",
+				"^generate",
+				"typecheck"
+			]
+		},
+		"dev": {
+			"dependsOn": [
+				"^build",
+				"^generate",
+				"generate",
+				"watch-deps"
+			]
+		}
+	},
+	"plugins": [
+		{
+			"plugin": "@nx/jest/plugin",
+			"exclude": [
+				"**/*-e2e/**"
+			],
+			"options": {
+				"targetName": "test",
+				"ciTargetName": "test-ci"
+			}
+		},
+		{
+			"plugin": "@nx/jest/plugin",
+			"include": [
+				"**/*-e2e/**"
+			],
+			"options": {
+				"targetName": "e2e",
+				"ciTargetName": "e2e-ci"
+			}
+		},
+		{
+			"plugin": "@nx/playwright/plugin",
+			"options": {
+				"targetName": "e2e",
+				"ciTargetName": "e2e-ci"
+			}
+		},
+		{
+			"plugin": "@nx/js/typescript",
+			"options": {
+				"typecheck": {
+					"targetName": "typecheck"
+				},
+				"build": {
+					"targetName": "build",
+					"configName": "tsconfig.lib.json",
+					"buildDepsName": "build-deps",
+					"watchDepsName": "watch-deps"
+				}
+			}
+		},
+		{
+			"plugin": "@nx/next/plugin",
+			"options": {
+				"startTargetName": "start",
+				"buildTargetName": "build",
+				"devTargetName": "dev",
+				"serveStaticTargetName": "serve-static",
+				"buildDepsTargetName": "build-deps",
+				"watchDepsTargetName": "watch-deps"
+			}
+		}
+	]
+}

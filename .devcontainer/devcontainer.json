@@ -1,0 +1,29 @@
+{
+	"name": "Hands In Interview",
+	"build":{
+		"dockerfile": "Dockerfile"
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": "true",
+			"configureZshAsDefaultShell": "true",
+			"installOhMyZsh": "true",
+			"installOhMyZshConfig": "true",
+			"username": "node",
+			"upgradePackages": "true"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"streetsidesoftware.code-spell-checker",
+				"bradlc.vscode-tailwindcss",
+				"mutantdino.resourcemonitor",
+				"biomejs.biome",
+				"firsttris.vscode-jest-runner"
+			]
+		}
+	},
+	"postCreateCommand": "sh .devcontainer/post-setup.sh",
+	"remoteUser": "node"
+}
